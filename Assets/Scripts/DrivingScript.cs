@@ -28,5 +28,15 @@ public class DrivingScript : MonoBehaviour
         {
             appliedTorque = ac * torque;
         }
+
+        foreach(WheelBase wheel in wheels)
+        {
+            wheel.wheelCollider.motorTorque = appliedTorque;
+            wheel.wheelCollider.brakeTorque = brake * brakeTorque;
+            if(wheel.frontWheel)
+            {
+                wheel.wheelCollider.steerAngle = steer * maxSteerAngle;
+            }
+        }
     }
 }
