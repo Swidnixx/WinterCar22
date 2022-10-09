@@ -5,6 +5,7 @@ using UnityEngine;
 public class DriveSupport : MonoBehaviour
 {
     public float antiRoll = 5000;
+    float lastTimeOk;
 
     Rigidbody rb;
 
@@ -17,12 +18,30 @@ public class DriveSupport : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    private void Update()
+    {
+        if(transform.up.y > 0.5 || rb.velocity.magnitude > 1)
+        {
+            lastTimeOk = Time.time;
+        }
+
+        if(Time.time > lastTimeOk + 3)
+        {
+            TurnCarBack();
+        }
+    }
+
     private void FixedUpdate()
     {
         HoldWheelsOnGround(frontWheeels);
         HoldWheelsOnGround(backWheels);
     }
 
+    void TurnCarBack()
+    {
+        transform.position += Vector3.up * 2;
+        transform.rotation = Quaternion.LookRotation(transform.forward);
+    }
     void HoldWheelsOnGround(WheelCollider[] wheels)
     {
         float leftTravel = 1.0f;
@@ -57,7 +76,7 @@ public class DriveSupport : MonoBehaviour
             rb.AddForceAtPosition(wheels[1].transform.up * antiRollForce,
                 wheels[1].transform.position);
         }
-        Debug.DrawLine(wheels[0].transform.position, wheels[0].transform.position + wheels[0].transform.up * -antiRollForce,Color.red);
-        Debug.DrawLine(wheels[1].transform.position, wheels[1].transform.position + wheels[1].transform.up * antiRollForce, Color.red);
+        Debug.DrawLine(wheels[0].transform.position, wheels[0].transform.position + wheels[0].transform.up * -antiRollForce/5000,Color.red);
+        Debug.DrawLine(wheels[1].transform.position, wheels[1].transform.position + wheels[1].transform.up * antiRollForce/5000, Color.red);
     }
 }
