@@ -17,6 +17,11 @@ public class PlayerController : MonoBehaviour
         float brake = Input.GetAxis("Jump");
         float steer = Input.GetAxis("Horizontal");
 
+        if(RaceController.racePending != true)
+        {
+            acc = 0;
+        }
+
         driveScript.Drive(acc, brake, steer);
     }
 }
