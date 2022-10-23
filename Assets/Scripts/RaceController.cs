@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RaceController : MonoBehaviour
 {
@@ -10,8 +12,19 @@ public class RaceController : MonoBehaviour
     public int timer = 3;
     CheckpointController[] controllers;
 
+    public TextMeshProUGUI startText;
+    public GameObject endGamePanel;
+
+    AudioSource audioSource;
+    public AudioClip countClip;
+    public AudioClip startClip;
+
     private void Start()
     {
+        endGamePanel.SetActive(false);
+
+        audioSource = GetComponent<AudioSource>();
+
         GameObject[] cars = GameObject.FindGameObjectsWithTag("Car");
         controllers = new CheckpointController[cars.Length];
         for(int i=0; i< cars.Length; i++)
@@ -32,23 +45,36 @@ public class RaceController : MonoBehaviour
 
         if(finishers == controllers.Length && racePending)
         {
-            print("Race Finished!");
+            endGamePanel.SetActive(true);
             racePending = false;
         }
+    }
+
+    public void RestartRace()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void CountDown()
     {
         if (timer > 0)
         {
-            Debug.Log("Rozpoczêcie wyœcigu za: " + timer);
+            audioSource.PlayOneShot(countClip); 
+            startText.text = ("Rozpoczêcie wyœcigu za: " + timer);
             timer--; 
         }
         else
         {
-            print("Start!");
+            audioSource.PlayOneShot(startClip);
+            startText.text = ("Start!");
             racePending = true;
             CancelInvoke(nameof(CountDown));
+
+            Invoke(nameof(HideStartText), 1);
         }
+    }
+    void HideStartText()
+    {
+        startText.gameObject.SetActive(false);
     }
 }
