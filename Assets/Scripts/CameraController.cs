@@ -28,4 +28,10 @@ public class CameraController : MonoBehaviour
                 = positions[activePosition];
         }
     }
+
+    public void SetCamera(Transform car)
+    {
+        vcam.Follow = car.GetComponent<DrivingScript>().rb.transform;
+        vcam.LookAt = vcam.Follow;
+    }
 }

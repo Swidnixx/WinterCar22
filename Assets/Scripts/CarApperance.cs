@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CarApperance : MonoBehaviour
 {
+    public int playerNumber;
+
     public string playerName;
     public Color carColor;
     public TextMeshProUGUI nameText;

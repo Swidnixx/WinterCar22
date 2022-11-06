@@ -19,8 +19,26 @@ public class RaceController : MonoBehaviour
     public AudioClip countClip;
     public AudioClip startClip;
 
+    public GameObject carPrefab;
+    public Transform[] spawnPositions;
+    public int playerCount = 2;
+
     private void Start()
     {
+        //Spawnowanie graczy
+        for(int i=0; i<playerCount; i++)
+        {
+            GameObject car = Instantiate(carPrefab);
+            car.transform.position = spawnPositions[i].position;
+            car.transform.rotation = spawnPositions[i].rotation;
+            car.GetComponent<CarApperance>().playerNumber = i;
+            if( i == 0)
+            {
+                car.GetComponent<PlayerController>().enabled = true;
+                GameObject.FindObjectOfType<CameraController>().SetCamera(car.transform);
+            }
+        }
+
         endGamePanel.SetActive(false);
 
         audioSource = GetComponent<AudioSource>();
