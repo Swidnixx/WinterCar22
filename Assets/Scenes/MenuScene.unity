@@ -1935,7 +1935,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 827.365, y: 414.9907}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1259792270
 MonoBehaviour:
@@ -3008,7 +3008,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1767258209}
         m_TargetAssemblyTypeName: RaceLauncher, Assembly-CSharp
-        m_MethodName: StartTestRace
+        m_MethodName: Connect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3531,7 +3531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputName: {fileID: 1392727118}
-  networkText: {fileID: 0}
+  networkText: {fileID: 1259792270}
 --- !u!1 &1771271953
 GameObject:
   m_ObjectHideFlags: 0

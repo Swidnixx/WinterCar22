@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
-public class RaceController : MonoBehaviour
+public class RaceController : MonoBehaviourPunCallbacks
 {
+    //Game Logic Fields
     public static bool racePending;
     public static int totalLaps = 1;
 
@@ -22,6 +24,10 @@ public class RaceController : MonoBehaviour
     public GameObject carPrefab;
     public Transform[] spawnPositions;
     public int playerCount = 2;
+
+    //Network Logic Fields
+    public GameObject startRaceButton;
+    public GameObject waitingForStartText;
 
     private void Start()
     {
