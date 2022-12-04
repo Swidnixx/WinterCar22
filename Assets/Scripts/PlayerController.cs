@@ -1,9 +1,12 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
+    public Collider bodyCollider;
+
     float lastTimeMoving = 0;
     CheckpointController checkpointController;
 
@@ -26,24 +29,31 @@ public class PlayerController : MonoBehaviour
             lastTimeMoving = Time.time;
         }
 
-        if(Time.time > lastTimeMoving + 3 || driveScript.rb.transform.position.y < 14 )
+        //additional distance from last point check
+        Vector3 relativeCarPos = Vector3.Scale(driveScript.rb.transform.position, new Vector3(1, 0, 1));
+        Vector3 relateviceLastPointPos = Vector3.Scale(checkpointController.lastPoint.position, new Vector3(1, 0, 1));
+        float distance = Vector3.Distance(relativeCarPos, relateviceLastPointPos);
+
+        if (distance > 1)
+        {
+            if ((Time.time > lastTimeMoving + 3 || driveScript.rb.transform.position.y < 14))
            // || driveScript.rb.transform.up.y < 0)
         {
-            driveScript.rb.transform.position =
-                checkpointController.lastPoint.position;
+                driveScript.rb.transform.position =
+                    checkpointController.lastPoint.position;
 
-            driveScript.rb.transform.rotation = checkpointController.lastPoint.rotation;
+                driveScript.rb.transform.rotation = checkpointController.lastPoint.rotation;
 
-            driveScript.rb.velocity = Vector3.zero;
-            driveScript.rb.angularVelocity = Vector3.zero;
-            lastTimeMoving = Time.time;
+                driveScript.rb.velocity = Vector3.zero;
+                driveScript.rb.angularVelocity = Vector3.zero;
+                lastTimeMoving = Time.time;
 
-            driveScript.rb.gameObject.layer = 6;
-            Invoke(nameof(ResetLayer), 3);
+                photonView.RPC(nameof(SetRespawnLayer), RpcTarget.All, null);
 
+            } 
         }
 
-        if(RaceController.racePending != true)
+        if(RaceController.racePending != true && RaceController.raceController == true)
         {
             acc = 0;
         }
@@ -51,8 +61,24 @@ public class PlayerController : MonoBehaviour
         driveScript.Drive(acc, brake, steer);
     }
 
+    [PunRPC]
+    void SetRespawnLayer()
+    {
+        Start();
+        driveScript.rb.gameObject.layer = 6;
+        bodyCollider.gameObject.layer = 6;
+        Invoke(nameof(ResetLayer), 10);
+    }
+
     void ResetLayer()
     {
-        driveScript.rb.gameObject.layer = 0; 
+        photonView.RPC(nameof(SetDefaultLayer), RpcTarget.All, null);
+    }
+
+    [PunRPC]
+    void SetDefaultLayer()
+    {
+        driveScript.rb.gameObject.layer = 0;
+        bodyCollider.gameObject.layer = 0;
     }
 }

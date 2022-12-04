@@ -790,6 +790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8af7871b3ff134f801024f044c925f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bodyCollider: {fileID: 2952209038149943078}
 --- !u!114 &2952209038368036406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,6 +831,7 @@ MonoBehaviour:
   carColor: {r: 0.11294055, g: 0.18918213, b: 0.8867924, a: 1}
   nameText: {fileID: 8655530477309797771}
   carRenderer: {fileID: 4555901037844478086}
+  backCamera: {fileID: 8655530476634133891}
 --- !u!114 &2850245402557556817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,7 +942,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3263434723296444797}
   - component: {fileID: 3263434723296444796}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WheelCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1002,7 +1004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3263434723316796020}
   - component: {fileID: 3263434723316796021}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WheelCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1113,7 +1115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3263434724502120349}
   - component: {fileID: 3263434724502120348}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WheelCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1175,7 +1177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3263434724599370755}
   - component: {fileID: 3263434724599370754}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WheelCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1335,7 +1337,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8655530476634133889}
   - component: {fileID: 8655530476634133891}
-  - component: {fileID: 8655530476634133890}
   m_Layer: 0
   m_Name: BackCamera
   m_TagString: Untagged
@@ -1401,14 +1402,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8655530476634133890
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8655530476634133888}
-  m_Enabled: 1
 --- !u!1 &8655530477309797769
 GameObject:
   m_ObjectHideFlags: 0

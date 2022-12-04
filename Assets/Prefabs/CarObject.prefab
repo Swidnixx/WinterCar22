@@ -147,7 +147,6 @@ GameObject:
   m_Component:
   - component: {fileID: 903431149}
   - component: {fileID: 903431151}
-  - component: {fileID: 903431150}
   m_Layer: 0
   m_Name: BackCamera
   m_TagString: Untagged
@@ -213,14 +212,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &903431150
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 903431148}
-  m_Enabled: 1
 --- !u!1 &2131316346
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdc4e98f2235b4e43a99107f774d5da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNumber: 0
   playerName: PlayerOne
   carColor: {r: 0.11294055, g: 0.18918213, b: 0.8867924, a: 1}
   nameText: {fileID: 220148711}

@@ -13,5 +13,19 @@ public class OnlinePlayer : MonoBehaviourPunCallbacks
         {
             LocalPlayerInstance = this.gameObject;
         }
+        else
+        {
+            string playerName;
+            Color playerColor;
+
+            if(photonView.InstantiationData != null)
+            {
+                playerName = (string)photonView.InstantiationData[0];
+                playerColor = MenuController.IntToColor((int)photonView.InstantiationData[1], (int)photonView.InstantiationData[2],
+                    (int)photonView.InstantiationData[3]);
+
+                GetComponent<CarApperance>().SetAvatar(playerName, playerColor);
+            }
+        }
     }
 }
