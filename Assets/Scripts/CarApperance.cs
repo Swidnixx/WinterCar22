@@ -14,6 +14,10 @@ public class CarApperance : MonoBehaviour
 
     public Camera backCamera;
 
+    int carId;
+    bool idSet;
+    public CheckpointController controller;
+
     public void SetAvatar(string name, Color color)
     {
         playerName = name;
@@ -39,5 +43,16 @@ public class CarApperance : MonoBehaviour
         RenderTexture rt = new RenderTexture(600, 200, 0);
         backCamera.targetTexture = rt;
         FindObjectOfType<RaceController>().SetMirrorPic(backCamera);
+    }
+
+    private void LateUpdate()
+    {
+        if(!idSet)
+        {
+            carId = Leaderboard.RegisterCar(playerName);
+            idSet = true;
+        }
+
+        Leaderboard.SetPosition(carId, controller.lap, controller.checkpoint);
     }
 }

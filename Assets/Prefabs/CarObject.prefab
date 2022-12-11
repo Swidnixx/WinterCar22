@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8af7871b3ff134f801024f044c925f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bodyCollider: {fileID: 5829563812543392074}
 --- !u!114 &5829563812325277786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,6 +401,8 @@ MonoBehaviour:
   carColor: {r: 0.11294055, g: 0.18918213, b: 0.8867924, a: 1}
   nameText: {fileID: 220148711}
   carRenderer: {fileID: 5127155517202673386}
+  backCamera: {fileID: 0}
+  controller: {fileID: 0}
 --- !u!1 &5829563812728236883
 GameObject:
   m_ObjectHideFlags: 0

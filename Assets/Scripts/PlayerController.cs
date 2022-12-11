@@ -29,16 +29,26 @@ public class PlayerController : MonoBehaviourPunCallbacks
             lastTimeMoving = Time.time;
         }
 
+        if(RaceController.racePending != true && RaceController.raceController == true)
+        {
+            acc = 0;
+        }
+
+        driveScript.Drive(acc, brake, steer);
+
+        if (checkpointController.lastPoint == null) return;
         //additional distance from last point check
         Vector3 relativeCarPos = Vector3.Scale(driveScript.rb.transform.position, new Vector3(1, 0, 1));
         Vector3 relateviceLastPointPos = Vector3.Scale(checkpointController.lastPoint.position, new Vector3(1, 0, 1));
         float distance = Vector3.Distance(relativeCarPos, relateviceLastPointPos);
+        CarApperance ca = GetComponent<CarApperance>();
+        Debug.Log(ca.playerName + ": " + distance);
 
         if (distance > 1)
         {
             if ((Time.time > lastTimeMoving + 3 || driveScript.rb.transform.position.y < 14))
-           // || driveScript.rb.transform.up.y < 0)
-        {
+            // || driveScript.rb.transform.up.y < 0)
+            {
                 driveScript.rb.transform.position =
                     checkpointController.lastPoint.position;
 
@@ -50,15 +60,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                 photonView.RPC(nameof(SetRespawnLayer), RpcTarget.All, null);
 
-            } 
+            }
         }
-
-        if(RaceController.racePending != true && RaceController.raceController == true)
-        {
-            acc = 0;
-        }
-
-        driveScript.Drive(acc, brake, steer);
     }
 
     [PunRPC]
@@ -67,12 +70,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Start();
         driveScript.rb.gameObject.layer = 6;
         bodyCollider.gameObject.layer = 6;
-        Invoke(nameof(ResetLayer), 10);
-    }
-
-    void ResetLayer()
-    {
-        photonView.RPC(nameof(SetDefaultLayer), RpcTarget.All, null);
+        Invoke(nameof(SetDefaultLayer), 10);
     }
 
     [PunRPC]
@@ -80,5 +78,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         driveScript.rb.gameObject.layer = 0;
         bodyCollider.gameObject.layer = 0;
+    }
+
+    void ResetLayer()
+    {
+        photonView.RPC(nameof(SetDefaultLayer), RpcTarget.All, null);
     }
 }
