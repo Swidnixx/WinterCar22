@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DrivingScript : MonoBehaviour
@@ -15,6 +17,31 @@ public class DrivingScript : MonoBehaviour
 
     //Debug
     public float currentSpeed;
+
+    //Nitro
+    public int nitroFuel = 5;
+    TextMeshProUGUI nitroText;
+
+    private void Start()
+    {
+        nitroText = GameObject.FindGameObjectWithTag("NitroText").GetComponent<TextMeshProUGUI>();
+        SetFuelUI();
+    }
+
+    internal void SetFuelUI()
+    {
+        nitroText.text = nitroFuel.ToString();
+    }
+
+    public void NitroBoost(bool active)
+    {
+        if(active && nitroFuel > 0)
+        {
+            nitroFuel--;
+            rb.AddForce(rb.gameObject.transform.forward * 10, ForceMode.VelocityChange);
+            SetFuelUI();
+        }
+    }
 
     public void Drive(float ac, float brake, float steer)
     {

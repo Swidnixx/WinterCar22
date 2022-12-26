@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         float acc = Input.GetAxis("Vertical");
         float brake = Input.GetAxis("Jump");
         float steer = Input.GetAxis("Horizontal");
+        bool nitro = Input.GetKeyDown(KeyCode.LeftShift);
 
         if(driveScript.rb.velocity.magnitude > 1 || !RaceController.racePending)
         {
@@ -32,6 +33,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if(RaceController.racePending != true && RaceController.raceController == true)
         {
             acc = 0;
+        }
+        else
+        {
+            driveScript.NitroBoost(nitro);
         }
 
         driveScript.Drive(acc, brake, steer);
